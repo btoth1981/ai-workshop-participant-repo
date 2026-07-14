@@ -34,16 +34,18 @@ gyúrd, lazíts!").
 
 ## 3. Termékkatalógus (kiinduló adat)
 
-| Slug | Név | Leírás | Ár (bruttó) |
-|---|---|---|---|
-| `klasszikus` | Klasszikus stresszlabda | Puha hab, kézre álló méret, egyszínű | 1 490 Ft |
-| `gel` | Gél stresszlabda | Rugalmas gél töltet, extra lágy tapintás | 1 990 Ft |
-| `smiley` | Smiley stresszlabda | Vidám mosolygós minta, tökéletes ajándék | 1 790 Ft |
-| `szett` | Antistressz szett (3 db) | Három különböző keménységű labda csomagban | 4 490 Ft |
-| `fejleszto` | Fejlesztő labda | Erősebb ellenállás, kézerő fejlesztéshez | 2 490 Ft |
+| Slug | Név | Leírás | Ár (bruttó) | Keménység |
+|---|---|---|---|---|
+| `klasszikus` | Klasszikus stresszlabda | Puha hab, kézre álló méret, egyszínű | 1 490 Ft | puha |
+| `gel` | Gél stresszlabda | Rugalmas gél töltet, extra lágy tapintás | 1 990 Ft | puha |
+| `smiley` | Smiley stresszlabda | Vidám mosolygós minta, tökéletes ajándék | 1 790 Ft | közepes |
+| `szett` | Antistressz szett (3 db) | Három különböző keménységű labda csomagban | 4 490 Ft | puha + közepes + erős |
+| `fejleszto` | Fejlesztő labda | Erősebb ellenállás, kézerő fejlesztéshez | 2 490 Ft | erős |
 
 Az árak bruttó fogyasztói árak; a katalógus tartalma az ember által szabadon
-módosítható törzsadat.
+módosítható törzsadat. Egy terméknek több keménység-szintje is lehet (a szett
+mindhármat tartalmazza); a keménység-szűrő (F1) azokat a termékeket mutatja,
+amelyek a választott szintet tartalmazzák.
 
 ## 4. Funkcionális követelmények
 
@@ -92,3 +94,6 @@ módosítható törzsadat.
    külön lépésben. ✔
 4. Rendelés-tárolás: **Neon Postgres** (`orders` + `order_items`, a `plan.md`
    szerint, a 2. ütemben). ✔
+5. Keménység-besorolás termékenként (a brief nem rögzítette; a T1 során a
+   leírásokból levezetve, emberi döntéssel a specbe emelve): klasszikus=puha,
+   gél=puha, smiley=közepes, szett=puha+közepes+erős, fejlesztő=erős. ✔
