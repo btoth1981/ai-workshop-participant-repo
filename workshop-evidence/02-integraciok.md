@@ -47,12 +47,11 @@ Linear-projekt: <https://linear.app/stressballs/project/ai-workshop-participant-
 ### 5. Automatikus deploy push-ra
 - Pontos parancs: `git push` után `vercel ls ai-workshop-participant-repo --scope stressballs`
 - Várt, megfigyelhető eredmény: a push-hoz tartozó deployment megjelenik.
-- Tényleges eredmény: még nem futott — a git-integráció bekötése UTÁNI első
-  push fogja először kiváltani.
-- Állapot: ISMERETLEN
-- Ha ismeretlen: döntési felelős és a tisztázandó kérdés: **ember** — mehet-e
-  az első push (pl. ezzel az evidence-fájllal), ami egyben az első automatikus
-  deploy-t is elindítja?
+- Tényleges eredmény: a `63c1f48` push automatikusan production deployt
+  indított; `vercel inspect --wait` eredménye: `● Ready` —
+  <https://ai-workshop-participant-repo-c7aiz8wk6-stressballs.vercel.app>.
+  A CI ugyanerre a pushra: `completed success` (run `29324767236`).
+- Állapot: ELLENŐRZÖTT
 
 ## Emberi döntések ebben a lépésben
 
@@ -63,8 +62,6 @@ Linear-projekt: <https://linear.app/stressballs/project/ai-workshop-participant-
 
 ## Maradék kockázat / nyitott pont
 
-- Az automatikus deploy-lánc (push → Vercel build → élő URL) még nem bizonyított
-  (5. ellenőrzés ISMERETLEN) — az első push validálja.
 - A Neon `Stressballs` projekt megosztott a korábbi gyakorlattal; ha a napnak
   dedikált DB kell, az külön emberi döntés.
 - `DATABASE_URL` csak lokálisan él; Vercel környezeti változóként még nincs
