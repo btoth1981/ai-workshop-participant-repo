@@ -7,16 +7,16 @@
 export type Firmness = "soft" | "medium" | "firm";
 
 export type Product = {
-  slug: string;
-  name: string;
-  description: string;
+  readonly slug: string;
+  readonly name: string;
+  readonly description: string;
   /** Gross price in whole HUF. */
-  priceHuf: number;
+  readonly priceHuf: number;
   /** Firmness levels present in the product (bundles may have several). */
-  firmness: Firmness[];
+  readonly firmness: readonly Firmness[];
 };
 
-export const products: Product[] = [
+export const products: readonly Product[] = [
   {
     slug: "klasszikus",
     name: "Klasszikus stresszlabda",

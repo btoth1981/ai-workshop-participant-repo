@@ -22,8 +22,14 @@ describe("formatHuf", () => {
     expect(formatHuf(-1_490)).toBe("-1 490 Ft");
   });
 
+  it("formats negative zero as plain zero", () => {
+    expect(formatHuf(-0)).toBe("0 Ft");
+  });
+
   it("rejects non-integer amounts (money is whole HUF by contract)", () => {
     expect(() => formatHuf(12.5)).toThrow(TypeError);
     expect(() => formatHuf(Number.NaN)).toThrow(TypeError);
+    expect(() => formatHuf(Number.POSITIVE_INFINITY)).toThrow(TypeError);
+    expect(() => formatHuf(Number.NEGATIVE_INFINITY)).toThrow(TypeError);
   });
 });
