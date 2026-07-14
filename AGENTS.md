@@ -29,7 +29,10 @@ Starter for a small website built with AI-assisted development
 8. Feature work starts only from the approved spec package in `docs/spec/`.
    Each task is a Linear issue (project: `ai-workshop-participant-repo`,
    team Stressballs); work happens on a feature branch and ends with a PR
-   and green gates.
+   and green gates. `main` is protected (since 2026-07-14): EVERY change —
+   code and documentation alike — lands through a PR with the required
+   `checks` status green; direct pushes are rejected for everyone,
+   admins included.
 9. Evidence over claims: every statement of fact is backed by the exact
    command and its observed output. Evidence files live in
    `workshop-evidence/` and follow the fixed template: purpose / what the
