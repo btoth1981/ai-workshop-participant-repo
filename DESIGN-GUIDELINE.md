@@ -9,7 +9,13 @@ is still a section: it tells the agent that the decision is still open.
 
 ## Brand & tone
 
-<!-- What is the site's mood? (e.g. playful / professional / minimalist) -->
+- Brand name: **Stresszlabda Shop** (human decision, 2026-07-14 — the brief's
+  body text uses this form; chosen over the title variant "Stresszlabda
+  Webshop"). Use it consistently in the header, footer and metadata.
+- Tone: friendly, calming, playful — "Szorítsd, gyúrd, lazíts!" (from the
+  brief). Hungarian UI copy.
+- Everything else in this section (colors, typography, imagery mood) is still
+  an OPEN human decision.
 
 ## Colors
 
