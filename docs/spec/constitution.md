@@ -43,5 +43,6 @@ megy végig.
 
 - GitHub: `btoth1981/ai-workshop-participant-repo` (CI: typecheck/lint/test/build)
 - Vercel: `stressballs/ai-workshop-participant-repo` (auto-deploy pushra/PR-re)
-- Neon Postgres: `Stressballs` (`steep-bar-94391898`)
+- Neon Postgres: Vercel-kezelt Marketplace-erőforrás (`autumn-hill-73068152`);
+  env-eket a Vercel provisionálja, lokálisan `vercel env pull`
 - Linear: `ai-workshop-participant-repo` projekt — az issue-k a munkadarab-specek

@@ -12,8 +12,9 @@ Két ütem, hogy a DB-blokk előtt is legyen működő, ellenőrizhető termék:
   TypeScript-modul; a kosár kliensoldali állapot `localStorage`-perzisztenciával.
   Nincs adatbázis-függés.
 - **2. ütem — rendelés-rögzítés Neonban:** a pénztár Server Action-nel írja a
-  rendelést a Neon Postgresbe (`DATABASE_URL` már a lokális `.env`-ben;
-  Vercel env var a bevezetéskor kerül be).
+  rendelést a Neon Postgresbe. A Neon Vercel-kezelt Marketplace-erőforrás
+  (2026-07-14 óta): a `DATABASE_URL`-t és társait a Vercel provisionálja
+  minden környezetre; lokális szinkron `vercel env pull`-lal (`.env.local`).
 
 ## 2. Útvonalak (App Router)
 
@@ -81,9 +82,10 @@ CREATE TABLE order_items (
 );
 ```
 
-DB-hozzáférés: `pg` vagy a Neon serverless driver — **új függőség, emberi
-jóváhagyást igényel** (constitution 3. elv alóli kivétel a 2. ütemben).
-Preview-környezethez Neon branch-elés (MCP-vel) a workshop DB-blokkja szerint.
+DB-hozzáférés: `@neondatabase/serverless` (a Vercel-integráció hivatalos
+guide-ja szerint) — **új függőség, emberi jóváhagyást igényel a T7 elején**
+(constitution 3. elv alóli kivétel a 2. ütemben). Preview-környezetekhez a
+Vercel-kezelt integráció automatikusan ad DB-branchet preview-deployonként.
 
 ## 5. Tesztstratégia
 
