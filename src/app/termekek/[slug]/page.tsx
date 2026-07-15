@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
+import { AddToCartButton } from "@/components/add-to-cart-button";
 import { getProduct, products } from "@/lib/catalog";
 import { formatHuf } from "@/lib/format";
 import { firmnessLabels } from "@/lib/product-filtering";
@@ -56,20 +56,8 @@ export default async function ProductPage({ params }: Props) {
           </p>
           <p>{product.description}</p>
           <p className="text-2xl font-medium">{formatHuf(product.priceHuf)}</p>
-          <div className="flex flex-col gap-2">
-            {/* Scenario B1 requires the "Kosárba" button to be visible here.
-                Wiring it to cart state is T6 scope (cart-provider does not
-                exist yet), so it renders disabled with an accessible note
-                until T6 lands. */}
-            <Button disabled aria-describedby="kosarba-hamarosan">
-              Kosárba
-            </Button>
-            <p
-              id="kosarba-hamarosan"
-              className="text-sm text-muted-foreground"
-            >
-              Hamarosan: a kosár funkció még készül.
-            </p>
+          <div>
+            <AddToCartButton slug={product.slug} productName={product.name} />
           </div>
         </div>
       </div>
