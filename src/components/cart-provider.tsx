@@ -79,6 +79,8 @@ type CartContextValue = {
   updateQuantity: (slug: string, quantity: number) => void;
   /** Removes a line (scenario C3). */
   removeFromCart: (slug: string) => void;
+  /** Empties the cart, e.g. after a successful order (scenario E4). */
+  clearCart: () => void;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -105,9 +107,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     writeCart(removeItem(readCart(), slug));
   }, []);
 
+  const clearCart = useCallback(() => {
+    writeCart(EMPTY_CART);
+  }, []);
+
   return (
     <CartContext.Provider
-      value={{ cart, hydrated, addToCart, updateQuantity, removeFromCart }}
+      value={{
+        cart,
+        hydrated,
+        addToCart,
+        updateQuantity,
+        removeFromCart,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>
