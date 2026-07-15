@@ -1,83 +1,69 @@
 # 08 – Folytatási pont (állapotmentés)
 
-> Kelt: 2026-07-14 ~15:00 · Emberi kérés: „ezt az állapotot mentsd el, hogy innen
-> lehessen folytatni". Ez a dokumentum a repo + folyamat teljes pillanatképe;
-> egy új agent-session ebből + az `AGENTS.md`-ből indulva folytatni tudja a munkát.
+> Frissítve: 2026-07-15 (workshop-zárás; eredeti mentés: 2026-07-14). Ez a
+> dokumentum a repo + folyamat pillanatképe; egy új agent-session ebből + az
+> `AGENTS.md`-ből indulva folytatni tudja a munkát.
 
-## Hol tartunk — napirend (tananyag)
+## Végállapot — napirend (tananyag): C1–C8 MIND KÉSZ ✅
 
-| Blokk | Állapot | Evidence |
-|---|---|---|
-| C1 — Szerepek és korlátok | ✅ | 01-helyzetkep.md |
-| C2 — Repo felkészítése | ✅ | 02, 03 + AGENTS.md 1–12 + docs/engineering-standards.md |
-| C3 — Specifikáció | ✅ | docs/spec/ (5 fájl, ELFOGADVA + 6.5 döntés) |
-| C4 — Független review | ✅ | 05 (T1 teljes RUG-lánc) + 07 (párhuzamos kör) |
-| C5 — Szabályok és kapuk | ✅ | 06 (branch-védelem, GH006 negatív + PR pozitív eset) |
-| C6 — Rendszerellenőrzés | ⬜ következő tananyag-blokk | — |
-| C7 — Legacy | ⬜ | — |
-| C8 — Bevezetés | ⬜ | — |
+| Blokk | Evidence |
+|---|---|
+| C1 szerepek/korlátok | 01-helyzetkep.md |
+| C2 repo-felkészítés | 02, 03 + AGENTS.md (13 szabály) + docs/engineering-standards.md |
+| C3 specifikáció | docs/spec/ (5 fájl, ELFOGADVA, §6 döntésnapló) |
+| C4 független review | 05 (T1 teljes RUG-lánc) + 07 (párhuzamos kör) |
+| C5 szabályok/kapuk | 06 (branch-védelem: GH006 negatív + PR pozitív eset) |
+| C6 rendszerellenőrzés | C6-rendszerellenorzes/ (8 fájl; lelet: környezet-drift → 13. szabály) |
+| C7 legacy | C7-legacy/ (3 karakterizáció + mutáció + ELFOGADOTT entry-plan) |
+| C8 bevezetés | C8-bevezetes/ (audit + harness-eval + 30–60–90, ELFOGADVA) |
 
-## Hol tartunk — munkadarab (Stresszlabda Shop webshop)
+## Végállapot — munkadarab (Stresszlabda Shop)
 
-Taskok (Linear, Stressballs team, projekt: ai-workshop-participant-repo):
+- **T1–T8: Done** (STR-5…STR-12), M1+M2 mérföldkő élő E2E-bizonyítással
+  (09-mvp-elo-bizonyitas.md; próbarendelés `7d9b9436-…` a DB-ben marad).
+- **T9 (STR-13): Backlog** — állandó integrációs teszt (TEST_DATABASE_URL +
+  CI-beli Neon-branch); emberi kapu az indítás előtt (CI-mechanizmus + secret).
+- 15 merged PR, mind a védett kapun át; 97 unit teszt zöld.
+- Élő production: https://ai-workshop-participant-repo.vercel.app — teljes
+  vásárlási út (böngészés→szűrés→termékoldal→kosár→pénztár→Neon-rendelés).
 
-| Task | Issue | Állapot | Merge |
-|---|---|---|---|
-| T1 terméktörzs + formázás | STR-5 | ✅ Done | 6c6f870 (PR #1, RUG: APPROVE→fix 7dce6b1→VERIFIED) |
-| T2 kosár-logika | STR-6 | ✅ Done | a9795b6 (PR #3, RUG: APPROVE) |
-| T3 layout + statikus oldalak | STR-7 | ✅ Done | 0b1c1b7 (PR #4, RUG: APPROVE) |
-| T4 terméklista + szűrés | STR-8 | ✅ Done | 000e5fb (PR #6, RUG: APPROVE) |
-| T5 termékoldal | STR-9 | ⬜ KÖVETKEZŐ — minden blokkolója feloldva | — |
-| T6 kosár-UI (M1 mérföldkő) | STR-10 | ⬜ T2+T5 után | — |
-| T7 DB-séma + orders (Neon) | STR-11 | ⬜ emberi kapu: `@neondatabase/serverless` driver jóváhagyása MÉG NYITOTT | — |
-| T8 pénztár (M2 mérföldkő) | STR-12 | ⬜ T6+T7 után | — |
+## Infrastruktúra-kötések (változatlanul érvényes)
 
-Main HEAD a mentéskor: `000e5fb` (+ ez a doksi PR-ja). Élő production: főoldal,
-/kapcsolat, /termekek (szűrő+rendezés); /termekek/[slug] és /kosar még 404 (T5/T6).
+- **GitHub:** btoth1981/ai-workshop-participant-repo; `main` VÉDETT (PR +
+  zöld `checks` mindenkinek, strict; direkt push → GH006).
+- **Vercel:** stressballs/ai-workshop-participant-repo; auto-deploy.
+- **Neon:** Vercel-kezelt `autumn-hill-73068152` (`neon-pink-yacht`,
+  us-east-1, PG 17.10); `orders`+`order_items` séma (db/schema.sql);
+  env-ek Vercel-provisionálva, lokálisan `vercel env pull`. FIGYELEM:
+  us-east-1 régió vs. EU-latency — nyitott emberi kérdés.
+- **Linear:** Stressballs team / ai-workshop-participant-repo projekt.
+- **Toolkit:** `../workshop-source/toolkit/`.
+- Lokális gép: .NET 10 SDK telepítve (C7-labor); Playwright a scratchpadban.
 
-## Infrastruktúra-kötések
+## Munkamód-szerződés
 
-- **GitHub:** btoth1981/ai-workshop-participant-repo (publikus). `main` VÉDETT:
-  PR + zöld `checks` (CI: typecheck/lint/test/build) kötelező mindenkinek,
-  adminnak is; direkt push elutasítva (GH006); strict mód (branch-frissítés
-  kell merge előtt).
-- **Vercel:** stressballs team / ai-workshop-participant-repo projekt; GitHub
-  auto-deploy (push→production, PR→preview).
-- **Neon:** Vercel-KEZELT Marketplace-erőforrás `autumn-hill-73068152`
-  (PG 17.10, üres — séma a T7-ben). 18 env var Vercel-provisionálva; lokálisan
-  `vercel env pull` → `.env.local`. A régi kézi Neon-projekt TÖRÖLVE.
-- **Linear:** issue = spec + állapot; MCP-vel írható-olvasható.
-- **Toolkit:** `../workshop-source/toolkit/` (standard, sablonok, csomagok).
+A teljes szerződés: AGENTS.md 1–13 (utolsó bővítés: 13. szabály — lockfile-t
+érintő merge/pull után `npm ci` a fő munkakönyvtárban). Lényeg: spec-first;
+maker ≠ reviewer ≠ ember; commit/push/merge/új függőség/vizuális döntés csak
+explicit emberi jóváhagyással; evidence parancs+kimenet szinten.
 
-## Munkamód-szerződés (röviden — a teljes: AGENTS.md 1–12)
+## Nyitott belépési pontok (mind emberi döntéssel indul)
 
-- Spec-first: docs/spec/ ELFOGADVA; minden task Linear-issue-ból, feature-branchen
-  (branch-név a Linear `gitBranchName` mezőjéből), PR-ral zárul.
-- Maker ≠ reviewer: makerek izolált worktree-ben (Agent tool), minden PR-ra
-  friss kontextusú független RUG-review agent, bizonyíték-kötelezettséggel.
-- Ember dönt: megállapítások sorsa, merge, új függőség, vizuális/brand döntés.
-- Commit/push csak explicit emberi kérésre; evidence minden lépésről
-  (workshop-evidence/, fix sablon).
-- DESIGN-GUIDELINE: Brand kitöltve („Stresszlabda Shop", hangnem); minden más
-  vizuális döntés NYITOTT — agent nem találhat ki.
-
-## Nyitott emberi döntések (a folytatás belépési pontjai)
-
-1. **T5 indítása** (STR-9) — kész az indításra, maker-agent flow.
-2. **T7 kapu:** `@neondatabase/serverless` driver-függőség jóváhagyása —
-   utána T7 a T5-tel párhuzamosan futhat (nem ütköznek).
-3. **Testing Library** dev-függőség (DOM-szintű teszt) — eddig elhalasztva,
-   adat-szintű lefedés elfogadva (07-es evidence, T3 #7).
-4. **DESIGN-GUIDELINE** többi szakasza (színek, tipográfia, …) — a vizuális
-   finomhangolás előfeltétele (K1 task).
-5. Ismert nem-blokkoló nit-ek: üres-állapot UI a /termekek-en (elméleti),
-   per-oldal metadata a kliens-oldalakon.
+1. **T9 (STR-13):** integrációs teszt CI-ba — kapu: Neon-branch mechanizmus
+   + secret jóváhagyása.
+2. **K1:** DESIGN-GUIDELINE kitöltése (csak a Brand van meg) → utána
+   vizuális finomhangolás (v0 / Claude Design útvonalak a guideline-ban).
+3. **Cserepróba** (model-harness-eval terv): lezárt task újrafuttatása másik
+   harness-szel — a modell-függetlenség bizonyítása.
+4. **Adoption-terv 2–3. döntése:** pilot-csapat/repo + szerep-gazdák.
+5. Kisebb ismert nit-ek: cross-tab kosár-szinkron; number-input UX; régi
+   visszaigazoló-URL kosár-ürítése; /termekek üres-állapot; DB-régió.
 
 ## Hogyan folytasd (új session receptje)
 
-1. Olvasd: `AGENTS.md` → `docs/engineering-standards.md` → `docs/spec/` →
-   ez a fájl.
-2. Ellenőrizd a kapukat: `npm run typecheck && npm run lint && npm run test`
-   (a mentéskor: mind zöld, 46 teszt).
-3. `gh pr list` + `git log --oneline -5` + Linear-státuszok egyeztetése.
-4. A fenti nyitott döntések közül az ember mondja meg, melyik indul.
+1. Olvasd: `AGENTS.md` → `docs/engineering-standards.md` → ez a fájl →
+   (feladattól függően) docs/spec/ és a releváns evidence.
+2. `npm ci` (13. szabály!), majd kapuk: `npm run typecheck && npm run lint
+   && npm run test` (záráskor: 97/97 zöld).
+3. `gh pr list` + `git log --oneline -5` + Linear-státusz egyeztetés.
+4. A fenti belépési pontok közül az ember mondja meg, melyik indul.
