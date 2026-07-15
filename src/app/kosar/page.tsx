@@ -37,6 +37,13 @@ export default function CartPage() {
               ))}
             </div>
             <OrderSummary cart={cart} />
+            {/* Entry point to checkout (T8, spec S5) — aligned with the
+                summary block above. */}
+            <div className="ml-auto">
+              <Link href="/penztar" className={buttonVariants()}>
+                Tovább a pénztárhoz
+              </Link>
+            </div>
           </>
         ))}
     </main>
