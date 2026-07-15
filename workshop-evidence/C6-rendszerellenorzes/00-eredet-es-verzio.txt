@@ -1,0 +1,23 @@
+STATUS: VERIFIED
+SOURCE_SHA: 665bdedf2b0cb14c05c2a18439437eb345ba3d6b (main, rövid: 665bded)
+ENVIRONMENT: lokális futtatás (Windows 11, Git Bash) + eldobható Neon-branch
+ADAPTER: Neon Postgres @ @neondatabase/serverless ^1.1.0 — branch br-proud-glitter-ats5mp18 (projekt: autumn-hill-73068152 / neon-pink-yacht, us-east-1)
+RUN_DATE: 2026-07-15T14:09:49Z (kezdés, UTC)
+
+== Verziók (parancs: node --version; npm --version; package.json) ==
+node    v24.18.0
+npm     11.16.0
+next    16.2.10
+react   19.2.4
+typescript ^5
+vitest  ^4.1.10
+@neondatabase/serverless ^1.1.0
+
+== Környezet-azonosítók ==
+GitHub:  btoth1981/ai-workshop-participant-repo @ main (védett)
+Vercel:  stressballs/ai-workshop-participant-repo (production: 3beab84 utáni deploy + 665bded docs)
+Neon:    projekt autumn-hill-73068152; DEFAULT branch: br-misty-poetry-atflcjoe (production adat);
+         C6 TESZT-branch: br-proud-glitter-ats5mp18 (parent: default; expiresAt: 2026-07-16T23:59:59Z)
+Build:   npm run build → exit 0 (✓ Compiled successfully, 11.5s)
+Szerver: next start :3000, DATABASE_URL = a TESZT-branch pooled connection stringje
+         (shell-env, felülírja a .env.local-t — a production DB-t a futás nem érintette)

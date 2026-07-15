@@ -1,0 +1,21 @@
+STATUS: VERIFIED
+SOURCE_SHA: 665bdedf2b0cb14c05c2a18439437eb345ba3d6b
+ENVIRONMENT: Neon MCP run_sql (csak SELECT)
+ADAPTER: TESZT-branch br-proud-glitter-ats5mp18 vs. production default branch
+RUN_DATE: 2026-07-15
+
+== ELŐTTE (TESZT-branch, a futások előtt) ==
+SELECT count(*): orders=1, order_items=1
+(az 1 sor a parent branchből örökölt 2026-07-14-i élő próbarendelés)
+
+== UTÁNA (TESZT-branch, minden futás után) ==
+orders=3:
+  teszt.elek@example.com   | total 2 980  | 1 tétel  (örökölt, változatlan)
+  c6.contract@example.com  | total 10 970 | 2 tétel  (contract-teszt, +1)
+  c6.siker@example.com     | total 2 980  | 1 tétel  (UI sikeres út, +1)
+A hibás UI-futás (c6-hibas-email) 0 sort írt.
+Mérleg: pontosan +2 új rekord a két sikeres futásból, +0 a hibásból. ✔
+
+== PRODUCTION (default branch) — izoláció-bizonyítás ==
+SELECT count(*) FROM orders → 1 (változatlan; a C6-futás a productionhoz
+nem nyúlt).

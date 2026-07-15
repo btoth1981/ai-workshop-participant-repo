@@ -1,0 +1,25 @@
+STATUS: VERIFIED (dokumentált eltéréssel)
+SOURCE_SHA: 665bdedf2b0cb14c05c2a18439437eb345ba3d6b
+ENVIRONMENT: next start :3000 lokálisan, DATABASE_URL = TESZT-branch
+ADAPTER: Neon Postgres — br-proud-glitter-ats5mp18
+RUN_DATE: 2026-07-15
+
+== Dokumentált eltérés a tananyag referencia-folyamatától ==
+A referencia-app REST API-t tesztel (POST 201 / duplikátum 409). Ebben a
+rendszerben NINCS REST API by design (plan §2): az API-határ a Next.js
+Server Action (submitOrder), amelyet a keretrendszer HTTP POST-ként hív a
+form beküldésekor. A duplikátum-védelem nem része a webshop-specnek (az a
+KK-Regisztráció workload szabálya) — a hibautat az érvénytelen input adja.
+
+== Sikeres út (a Server Action határon át) ==
+Bemenet: c6.siker@example.com + érvényes mezők + 1×klasszikus a kosárban
+Megfigyelt: HTTP POST → szerveroldali validáció (közös modul) → buildOrder
+(szerveroldali újra-árazás) → saveOrder → redirect
+/penztar/koszonjuk/8c010abc-ae5e-4b42-9c25-f454a882ade1 — rendelés a DB-ben
+(lásd 05-data.txt).
+
+== Hibás út ==
+Bemenet: "c6-hibas-email" (érvénytelen formátum), többi mező érvényes
+Megfigyelt: a beküldés a pénztáron marad, mezőszintű hibaüzenet jelenik meg,
+rendelés NEM jön létre (05-data.txt: 0 új sor a hibás futásból). A kliens- és
+szerveroldal ugyanazt a validációs modult futtatja (T8 review #2 bizonyíték).

@@ -49,6 +49,11 @@ Starter for a small website built with AI-assisted development
 12. Follow `docs/engineering-standards.md` — the canonical checklist for
     makers, fixers and reviewers. Link to it, never copy it into prompts.
     Toolkit source for station packages: `../workshop-source/toolkit/`.
+13. After every merge or pull that touches `package.json`/`package-lock.json`,
+    run `npm ci` in the main working tree before relying on local gate runs —
+    makers install dependencies in isolated worktrees, so the main tree can
+    silently drift from the lockfile while CI stays green (C6 finding,
+    2026-07-15).
 
 > This file grows during the workshop — every recurring correction you give
 > the agent belongs here as a rule.
