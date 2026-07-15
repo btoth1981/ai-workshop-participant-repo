@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
+import { CartProvider } from "@/components/cart-provider";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,8 +24,7 @@ export const metadata: Metadata = {
     "Stresszoldó labdák webshopja — szorítsd, gyúrd, lazíts!",
 };
 
-// Header navigation (spec plan.md §2 routes). Links to pages that do not
-// exist yet (T4–T6) intentionally 404 until those tasks land.
+// Header navigation (spec plan.md §2 routes).
 const navItems = [
   { href: "/", label: "Főoldal" },
   { href: "/termekek", label: "Termékek" },
@@ -60,7 +61,9 @@ export default function RootLayout({
             </nav>
           </div>
         </header>
-        {children}
+        {/* Cart context (T6): client provider around the page content so the
+            add-to-cart buttons and the /kosar page share one cart state. */}
+        <CartProvider>{children}</CartProvider>
         <footer className="border-t">
           <div className="mx-auto w-full max-w-5xl px-4 py-6 text-sm text-muted-foreground">
             <p>Stresszlabda Shop — szorítsd, gyúrd, lazíts!</p>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { AddToCartButton } from "@/components/add-to-cart-button";
 import {
   Card,
   CardContent,
@@ -33,8 +34,10 @@ export function ProductCard({ product }: { product: Product }) {
         </CardTitle>
         <CardDescription>{product.description}</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex items-center justify-between gap-2">
         <p className="font-medium">{formatHuf(product.priceHuf)}</p>
+        {/* Spec F2: products can be added to the cart from the list too. */}
+        <AddToCartButton slug={product.slug} productName={product.name} />
       </CardContent>
     </Card>
   );
