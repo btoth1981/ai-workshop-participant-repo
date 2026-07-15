@@ -1,0 +1,29 @@
+STATUS: VERIFIED (környezet-drift észlelve és javítva — lásd lent)
+SOURCE_SHA: 665bdedf2b0cb14c05c2a18439437eb345ba3d6b
+ENVIRONMENT: lokális (node v24.18.0)
+ADAPTER: nem releváns (unit-szint, DB nélkül)
+RUN_DATE: 2026-07-15
+
+== 1. futás — parancs: npm run test ==
+EXIT: 1
+Test Files  1 failed | 9 passed (10)
+Tests       86 passed (86)
+HIBA: src/lib/orders.test.ts — "Cannot find package '@neondatabase/serverless'"
+
+ELEMZÉS (verzió-eltérés, a C6 pont ezt keresi):
+A T7 a @neondatabase/serverless-t izolált worktree-ben telepítette; a fő
+munkakönyvtár node_modules-a a merge után nem frissült a lockfile-hoz képest.
+A CI mindig zöld volt (ott friss npm ci fut) — a drift CSAK lokálisan létezett.
+
+== Javítás — parancs: npm ci ==
+EXIT: 0
+
+== 2. futás — parancs: npm run test ==
+EXIT: 0
+Test Files  10 passed (10)
+Tests       97 passed (97)
+
+== Kiemelt kritikus határeset ==
+src/lib/cart.test.ts:141 — "D2: subtotal exactly 10 000 → shipping 0, total
+10 000 (boundary)" — a kizáró/befogadó határ tesztje: pontosan 10 000 Ft-nál
+már ingyenes a szállítás (>= reláció), 9 999-nél még 1 490 Ft (D1).
